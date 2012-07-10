@@ -23,7 +23,7 @@ public class Karyawan implements Serializable {
     private Long id;
     private String namakaryawan;
     private String jenkel;
-    private String almat;
+    private String alamat;
     private String sisacuti;
 
     public Long getId() {
@@ -32,6 +32,38 @@ public class Karyawan implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String almat) {
+        this.alamat = almat;
+    }
+
+    public String getJenkel() {
+        return jenkel;
+    }
+
+    public void setJenkel(String jenkel) {
+        this.jenkel = jenkel;
+    }
+
+    public String getNamakaryawan() {
+        return namakaryawan;
+    }
+
+    public void setNamakaryawan(String namakaryawan) {
+        this.namakaryawan = namakaryawan;
+    }
+
+    public String getSisacuti() {
+        return sisacuti;
+    }
+
+    public void setSisacuti(String sisacuti) {
+        this.sisacuti = sisacuti;
     }
 
     @Override
