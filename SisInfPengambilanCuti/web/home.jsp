@@ -37,26 +37,66 @@
 		</div>
 		
 		<div id="templatemo_content">
-			<ul class="inner">
+			<ul class="kwicks">
 			
 				<li id="home"><span class="header"></span>
-                                    <h2 >Login</h2>
-                                    <div id="contact_form"  class="col_w280 float_l">
-								<form method="post" name="contact" action="home.jsp">
+					<div class="inner">
+						<h2>Selamat datang di Halaman Cuti</h2>
+						<p><em>Teknologi Persisten</em></p>
+							<!--						<div class="col_half float_r">
+							<p></p>
+							<h3>Overview</h3>
+
+							<ul class="templatemo_list">
+								<li>Maecenas ac odio</li>
+								<li>Fusce risus tortor</li>
+								<li>Proin facilisis ulla</li>
+								<li>Sed vel justo quis</li>
+								<li>Ut tristique sagittis</li>
+							</ul>
+						</div>
+						-->
+					</div>
+				</li>
+			
+				<li id="cuti"><span class="header"></span>
+					<div class="inner">
+						<h2>Cuti</h2>
+							<div id="contact_form"  class="col_w280 float_l">
+								<form method="post" name="contact" action="#">
 									<table>
 										<tr>
-											<td>Username: </td>
+											<td>Nama: </td>
 											<td>
-												<input type="text" id="author" name="usr" class="required input_field" />
+												<input type="text" id="author" name="author" class="required input_field" />
 											</td></tr>
-										
 										<tr>
-											<td> Password : </td>
+											<td>Jenis Cuti : </td>
 											<td>
-												<input type="password" id="author" name="pwd" class="required input_field" />
+												<select name=?select?>
+													<option value=?Islam?>Liburan</option>
+													<option value=?Kristen?>Keperluan Keluarga</option>
+												</select>
 											</td>
 										</tr>
-										
+										<tr>
+											<td>Dari Tanggal: </td>
+											<td>
+												<input type="text" id="author" name="author" class="required input_field" />
+											</td>
+										</tr>
+										<tr>
+											<td>Sampai Tanggal: </td>
+											<td>
+												<input type="text" id="author" name="author" class="required input_field" />
+											</td>
+										</tr>
+										<tr>
+											<td>Keterangan: </td>
+											<td>
+											<textarea rows="2" cols="20"></textarea>
+											</td>
+										</tr>
 										<tr>
 											<td></td>
 											<td>
@@ -66,8 +106,25 @@
 									</table>
 								</form>
 							</div>
+					</div>
+				</li>
+				<li id="cuti"><span class="header"></span>
+					<div class="inner">
+						<h2>Cuti</h2>
+					</div>
 				</li>
 			
+				<li id="cuti"><span class="header"></span>
+					<div class="inner">
+						<h2>Cuti</h2>
+					</div>
+				</li>
+				
+				<li id="cuti"><span class="header"></span>
+					<div class="inner">
+						<h2>Cuti</h2>
+					</div>
+				</li>
 			
 			</ul>
 			
