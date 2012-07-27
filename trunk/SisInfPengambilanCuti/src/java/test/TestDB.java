@@ -6,10 +6,18 @@
  */
 package test;
 
+import dao.AdminDAO;
+import dao.AdminDAOImpl;
 import dao.HistoryCutiDAO;
 import dao.HistoryCutiDAOImpl;
-import entity.Historycuti;
+import dao.KaryawanDAO;
+import dao.KaryawanDAOImpl;
+import dao.LoginKaryawanDAO;
+import dao.LoginKaryawanDAOImpl;
+import entity.HistoryCuti;
 import entity.Karyawan;
+import entity.Loginkaryawan;
+import entity.Tbladmin;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -26,23 +34,34 @@ public class TestDB {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("SisInfPengambilanCutiPU");
         EntityManager em = emf.createEntityManager();
 
-        Karyawan k = new Karyawan();
-        k.setNamakaryawan("Tonix");
-        k.setAlamat("Salatiga");
-        k.setJenkel("Laki-Laki");
-        k.setSisacuti("7");
-
-
-        Historycuti hc = new Historycuti();
-        hc.setIdKaryawan(k);
-        hc.setStatus("Pending");
-        hc.setTglawalcuti("13-07-2012");
-        hc.setTglakhircuti("20-07-2012");
-
+//        Karyawan k = new Karyawan();
+//        k.setNamakaryawan("Toni");
+//        k.setAlamat("Salatiga");
+//        k.setJenkel("Laki-Laki");
+//        k.setSisacuti("7");
+//
+//
+//        HistoryCuti hc = new HistoryCuti();
+//        hc.setKaryawan(k);
+//        hc.setStatus("Pending");
+//        hc.setTglawalcuti("13-07-2012");
+//        hc.setTglakhircuti("20-07-2012");
+           String username = "toni";
+           String password = "toni";
         try {
-            HistoryCutiDAO hcDao = new HistoryCutiDAOImpl(em);
-          //  hcDao.insert(hc);
-           System.out.println(hcDao.getByIdKaryawan(new Karyawan(1)).get(0).getIdKaryawan().getNamakaryawan());
+            KaryawanDAO kdao = new KaryawanDAOImpl(em);
+            
+            Loginkaryawan login = new Loginkaryawan();
+            login.setUsername(username);
+            login.setPassword(password);
+            //login.setIdKaryawan(kdao.get(1));
+            LoginKaryawanDAO ldao = new LoginKaryawanDAOImpl(em);
+            System.out.println(ldao.getLoginKaryawanName(username).getNamakaryawan());
+            //ldao.insert(login);
+            //System.out.print(adminDao.loginAdmin(loginAdmin));
+//            HistoryCutiDAO hcDao = new HistoryCutiDAOImpl(em);
+            //hcDao.insert(hc);
+           //System.out.println(hcDao.getByIdKaryawan(new Karyawan(1)).get(0).getKaryawan().getNamakaryawan());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

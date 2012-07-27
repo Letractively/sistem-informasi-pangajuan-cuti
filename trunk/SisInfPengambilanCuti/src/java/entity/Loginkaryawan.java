@@ -15,9 +15,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -43,7 +43,7 @@ public class Loginkaryawan implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
     @JoinColumn(name = "id_karyawan", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     private Karyawan idKaryawan;
 
     public Loginkaryawan() {
