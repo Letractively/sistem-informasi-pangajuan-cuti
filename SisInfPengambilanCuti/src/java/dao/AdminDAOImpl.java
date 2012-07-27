@@ -4,7 +4,7 @@
  */
 package dao;
 
-import entity.TblAdmin;
+import entity.Tbladmin;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -19,7 +19,7 @@ public class AdminDAOImpl extends GeneralDAOImpl implements AdminDAO {
         super(em);
     }
 
-    public boolean loginAdmin(TblAdmin tAdmin) throws Exception {
+    public boolean loginAdmin(Tbladmin tAdmin) throws Exception {
         boolean login = false;
         try {
             em.getTransaction().begin();
@@ -35,11 +35,11 @@ public class AdminDAOImpl extends GeneralDAOImpl implements AdminDAO {
         return login;
     }
 
-    public List<TblAdmin> gets() throws Exception {
-        List<TblAdmin> list = new ArrayList<TblAdmin>();
+    public List<Tbladmin> gets() throws Exception {
+        List<Tbladmin> list = new ArrayList<Tbladmin>();
         try {
             em.getTransaction().begin();
-            list = em.createQuery("SELECT a FROM TblAdmin a").getResultList();
+            list = em.createQuery("SELECT a FROM Tbladmin a").getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {
             throw ex;

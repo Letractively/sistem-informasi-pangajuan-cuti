@@ -6,7 +6,7 @@
 package dao;
 
 import entity.Karyawan;
-import entity.LoginKaryawan;
+import entity.Loginkaryawan;
 import java.util.List;
 
 /**
@@ -14,6 +14,6 @@ import java.util.List;
  * @author Wirawan
  */
 public interface LoginKaryawanDAO {
-    public List<LoginKaryawan> gets() throws Exception;
-    public boolean loginKaryawan(LoginKaryawan lk) throws Exception;
+    public List<Loginkaryawan> gets() throws Exception;
+    public boolean loginKaryawan(Loginkaryawan lk) throws Exception;
 }

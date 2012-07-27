@@ -8,6 +8,7 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.omg.CORBA.PERSIST_STORE;
 
 /**
  *
@@ -47,9 +49,9 @@ public class Karyawan implements Serializable {
     private String sisacuti;
     @Column(name = "ALAMAT")
     private String alamat;
-    @OneToMany(mappedBy = "idKaryawan", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idKaryawan", fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     private List<Historycuti> historycutiList;
-    @OneToMany(mappedBy = "idKaryawan", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idKaryawan", fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     private List<Loginkaryawan> loginkaryawanList;
 
     public Karyawan() {
