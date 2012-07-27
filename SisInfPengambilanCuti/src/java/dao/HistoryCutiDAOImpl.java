@@ -1,6 +1,6 @@
 package dao;
 
-import entity.Historycuti;
+import entity.HistoryCuti;
 import entity.Karyawan;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         super(em);
     }
 
-    public List<Historycuti> gets() throws Exception {
-        List<Historycuti> list = new ArrayList<Historycuti>();
+    public List<HistoryCuti> gets() throws Exception {
+        List<HistoryCuti> list = new ArrayList<HistoryCuti>();
         try {
             em.getTransaction().begin();
             list = em.createQuery("SELECT hc FROM Historycuti hc").getResultList();
@@ -29,13 +29,13 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         return list;
     }
 
-   public List<Historycuti> getByIdKaryawan(Karyawan idKaryawan) throws Exception {
-        List<Historycuti> list = new ArrayList<Historycuti>();
+   public List<HistoryCuti> getByIdKaryawan(Karyawan karyawan) throws Exception {
+        List<HistoryCuti> list = new ArrayList<HistoryCuti>();
         try {
             em.getTransaction().begin();
-            TypedQuery<Historycuti> query = em.createQuery("SELECT hc FROM Historycuti hc WHERE hc.idKaryawan = :id",
-                    Historycuti.class);
-            query.setParameter("id", idKaryawan);
+            TypedQuery<HistoryCuti> query = em.createQuery("SELECT hc FROM HistoryCuti hc WHERE hc.karyawan = :id",
+                    HistoryCuti.class);
+            query.setParameter("id", karyawan);
             list = query.getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -44,8 +44,8 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         return list;
     }
 
-    public List<Historycuti> getByDate(String startDate, String endDate) throws Exception {
-        List<Historycuti> list = new ArrayList<Historycuti>();
+    public List<HistoryCuti> getByDate(String startDate, String endDate) throws Exception {
+        List<HistoryCuti> list = new ArrayList<HistoryCuti>();
         try {
             em.getTransaction().begin();
             list = em.createQuery("SELECT hc FROM Historycuti hc WHERE hc.tglawalcuti = " + startDate +

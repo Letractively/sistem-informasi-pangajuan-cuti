@@ -23,7 +23,7 @@ public class AdminDAOImpl extends GeneralDAOImpl implements AdminDAO {
         boolean login = false;
         try {
             em.getTransaction().begin();
-            List resultList = em.createQuery("SELECT a FROM TblAdmin a WHERE a.username='" 
+            List resultList = em.createQuery("SELECT a FROM Tbladmin a WHERE a.username='" 
                     + tAdmin.getUsername() + "' AND a.password='" + tAdmin.getPassword() + "'").getResultList();
             em.getTransaction().commit();
             if(!resultList.isEmpty()){

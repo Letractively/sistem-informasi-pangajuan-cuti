@@ -18,8 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.omg.CORBA.PERSIST_STORE;
 
 /**
  *
@@ -49,10 +49,10 @@ public class Karyawan implements Serializable {
     private String sisacuti;
     @Column(name = "ALAMAT")
     private String alamat;
-    @OneToMany(mappedBy = "idKaryawan", fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    private List<Historycuti> historycutiList;
-    @OneToMany(mappedBy = "idKaryawan", fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    private List<Loginkaryawan> loginkaryawanList;
+    @OneToMany(mappedBy = "karyawan", fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    private List<HistoryCuti> historycutiList;
+    @OneToOne(mappedBy = "idKaryawan", fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    private Loginkaryawan loginkaryawanList;
 
     public Karyawan() {
     }
@@ -106,20 +106,20 @@ public class Karyawan implements Serializable {
         this.alamat = alamat;
     }
 
-    public List<Historycuti> getHistorycutiList() {
+    public List<HistoryCuti> getHistorycutiList() {
         return historycutiList;
     }
 
-    public void setHistorycutiList(List<Historycuti> historycutiList) {
+    public void setHistorycutiList(List<HistoryCuti> historycutiList) {
         this.historycutiList = historycutiList;
     }
 
-    public List<Loginkaryawan> getLoginkaryawanList() {
+    public Loginkaryawan getLoginkaryawan() {
         return loginkaryawanList;
     }
 
-    public void setLoginkaryawanList(List<Loginkaryawan> loginkaryawanList) {
-        this.loginkaryawanList = loginkaryawanList;
+    public void setLoginkaryawanList(Loginkaryawan loginkaryawan) {
+        this.loginkaryawanList = loginkaryawan;
     }
 
     @Override

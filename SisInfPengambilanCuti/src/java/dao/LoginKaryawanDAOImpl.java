@@ -10,6 +10,7 @@ import entity.Loginkaryawan;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -37,12 +38,27 @@ public class LoginKaryawanDAOImpl extends GeneralDAOImpl implements LoginKaryawa
         boolean login = false;
         try {
             em.getTransaction().begin();
-            List resultList = em.createQuery("SELECT k FROM Karyawan k WHERE k.username='"
+            List resultList = em.createQuery("SELECT k FROM Loginkaryawan k WHERE k.username='"
                     + lk.getUsername() + "' AND k.password='" + lk.getPassword() + "'").getResultList();
             em.getTransaction().commit();
             if(!resultList.isEmpty()){
                 login = true;
             }
+        } catch (Exception ex) {
+            throw ex;
+        }
+        return login;
+    }
+
+    public Karyawan getLoginKaryawanName(String username) throws Exception {
+        Karyawan login = null;
+        try {
+            em.getTransaction().begin();
+            TypedQuery<Loginkaryawan> query = em.createQuery("SELECT k FROM Loginkaryawan k WHERE k.username = :user",
+                    Loginkaryawan.class);
+            query.setParameter("user", username);
+            login = query.getSingleResult().getIdKaryawan();
+            em.getTransaction().commit();
         } catch (Exception ex) {
             throw ex;
         }
