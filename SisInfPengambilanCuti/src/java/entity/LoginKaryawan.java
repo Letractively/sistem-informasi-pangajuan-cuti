@@ -27,7 +27,7 @@ public class LoginKaryawan implements Serializable {
     private String username;
     private String password;
 
-    @OneToOne(cascade={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="id_karyawan")
     Karyawan karyawan;
 

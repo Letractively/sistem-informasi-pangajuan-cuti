@@ -29,7 +29,7 @@ public class HistoryCuti implements Serializable {
     private String alasan;
     private String status;
     
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "id_karyawan")
     Karyawan karyawan;
 
