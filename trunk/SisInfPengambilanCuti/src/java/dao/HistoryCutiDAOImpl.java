@@ -1,9 +1,11 @@
 package dao;
 
-import entity.HistoryCuti;
+import entity.Historycuti;
+import entity.Karyawan;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -15,11 +17,11 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         super(em);
     }
 
-    public List<HistoryCuti> gets() throws Exception {
-        List<HistoryCuti> list = new ArrayList<HistoryCuti>();
+    public List<Historycuti> gets() throws Exception {
+        List<Historycuti> list = new ArrayList<Historycuti>();
         try {
             em.getTransaction().begin();
-            list = em.createQuery("SELECT hc FROM HistoryCuti hc").getResultList();
+            list = em.createQuery("SELECT hc FROM Historycuti hc").getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {
             throw ex;
@@ -27,11 +29,14 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         return list;
     }
 
-    public List<HistoryCuti> getByIdKaryawan(long idKaryawan) throws Exception {
-        List<HistoryCuti> list = new ArrayList<HistoryCuti>();
+   public List<Historycuti> getByIdKaryawan(Karyawan idKaryawan) throws Exception {
+        List<Historycuti> list = new ArrayList<Historycuti>();
         try {
             em.getTransaction().begin();
-            list = em.createQuery("SELECT hc FROM HistoryCuti hc WHERE hc.id_karyawan = " + idKaryawan).getResultList();
+            TypedQuery<Historycuti> query = em.createQuery("SELECT hc FROM Historycuti hc WHERE hc.idKaryawan = :id",
+                    Historycuti.class);
+            query.setParameter("id", idKaryawan);
+            list = query.getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {
             throw ex;
@@ -39,11 +44,11 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         return list;
     }
 
-    public List<HistoryCuti> getByDate(String startDate, String endDate) throws Exception {
-        List<HistoryCuti> list = new ArrayList<HistoryCuti>();
+    public List<Historycuti> getByDate(String startDate, String endDate) throws Exception {
+        List<Historycuti> list = new ArrayList<Historycuti>();
         try {
             em.getTransaction().begin();
-            list = em.createQuery("SELECT hc FROM HistoryCuti hc WHERE hc.tglawalcuti = " + startDate +
+            list = em.createQuery("SELECT hc FROM Historycuti hc WHERE hc.tglawalcuti = " + startDate +
                                   " AND hc.tglakhircuti = "+endDate).getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {

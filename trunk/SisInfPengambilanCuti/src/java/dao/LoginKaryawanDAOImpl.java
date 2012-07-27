@@ -6,7 +6,7 @@
 package dao;
 
 import entity.Karyawan;
-import entity.LoginKaryawan;
+import entity.Loginkaryawan;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,11 +21,11 @@ public class LoginKaryawanDAOImpl extends GeneralDAOImpl implements LoginKaryawa
         super(em);
     }
 
-    public List<LoginKaryawan> gets() throws Exception {
-        List<LoginKaryawan> list = new ArrayList<LoginKaryawan>();
+    public List<Loginkaryawan> gets() throws Exception {
+        List<Loginkaryawan> list = new ArrayList<Loginkaryawan>();
         try {
             em.getTransaction().begin();
-            list = em.createQuery("SELECT a FROM LoginKaryawan a").getResultList();
+            list = em.createQuery("SELECT a FROM Loginkaryawan a").getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {
             throw ex;
@@ -33,7 +33,7 @@ public class LoginKaryawanDAOImpl extends GeneralDAOImpl implements LoginKaryawa
         return list;
     }
 
-    public boolean loginKaryawan(LoginKaryawan lk) throws Exception {
+    public boolean loginKaryawan(Loginkaryawan lk) throws Exception {
         boolean login = false;
         try {
             em.getTransaction().begin();

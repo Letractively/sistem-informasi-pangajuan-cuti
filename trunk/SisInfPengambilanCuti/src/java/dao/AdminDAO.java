@@ -4,7 +4,7 @@
  */
 package dao;
 
-import entity.TblAdmin;
+import entity.Tbladmin;
 import java.util.List;
 
 /**
@@ -12,6 +12,6 @@ import java.util.List;
  * @author and2erlangga
  */
 public interface AdminDAO extends GeneralDAO {
-    public List<TblAdmin> gets() throws Exception;
-    public boolean loginAdmin(TblAdmin tAdmin) throws Exception;
+    public List<Tbladmin> gets() throws Exception;
+    public boolean loginAdmin(Tbladmin tAdmin) throws Exception;
 }
