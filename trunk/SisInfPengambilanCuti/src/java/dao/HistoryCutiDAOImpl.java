@@ -21,7 +21,7 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         List<HistoryCuti> list = new ArrayList<HistoryCuti>();
         try {
             em.getTransaction().begin();
-            list = em.createQuery("SELECT hc FROM Historycuti hc").getResultList();
+            list = em.createQuery("SELECT hc FROM HistoryCuti hc").getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {
             throw ex;
@@ -29,7 +29,7 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         return list;
     }
 
-   public List<HistoryCuti> getByIdKaryawan(Karyawan karyawan) throws Exception {
+    public List<HistoryCuti> getByIdKaryawan(Karyawan karyawan) throws Exception {
         List<HistoryCuti> list = new ArrayList<HistoryCuti>();
         try {
             em.getTransaction().begin();
@@ -48,12 +48,34 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         List<HistoryCuti> list = new ArrayList<HistoryCuti>();
         try {
             em.getTransaction().begin();
-            list = em.createQuery("SELECT hc FROM Historycuti hc WHERE hc.tglawalcuti = " + startDate +
-                                  " AND hc.tglakhircuti = "+endDate).getResultList();
+            list = em.createQuery("SELECT hc FROM Historycuti hc WHERE hc.tglawalcuti = " + startDate
+                    + " AND hc.tglakhircuti = " + endDate).getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {
             throw ex;
         }
         return list;
+    }
+
+    public void approveCuti(HistoryCuti hcuti) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.merge(hcuti);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    public HistoryCuti getById(long id) throws Exception {
+        HistoryCuti hc = new HistoryCuti();
+        try {
+            em.getTransaction().begin();
+            hc = (HistoryCuti) em.createQuery("SELECT hc FROM HistoryCuti hc WHERE hc.id="+id).getResultList().get(0);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            throw ex;
+        }
+        return hc;
     }
 }
