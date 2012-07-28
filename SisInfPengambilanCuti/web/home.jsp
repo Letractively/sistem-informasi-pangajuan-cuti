@@ -1,3 +1,10 @@
+<%@page import="entity.HistoryCuti"%>
+<%@page import="java.util.List"%>
+<%@page import="javax.persistence.EntityManager"%>
+<%@page import="javax.persistence.Persistence"%>
+<%@page import="javax.persistence.EntityManagerFactory"%>
+<%@page import="dao.HistoryCutiDAOImpl"%>
+<%@page import="dao.HistoryCutiDAO"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -42,7 +49,7 @@
                         <li id="home"><span class="header"></span>
                             <div class="inner">
                                 <h2>Selamat datang <% out.println(session.getAttribute("user")); %></h2>
-                                <p><em>Teknologi Persisten</em></p>
+                                <p><em>Teknologi Persisten</em><br/><a href="Logout">Logout</a></p>
                                 <!--						<div class="col_half float_r">
                                 <p></p>
                                 <h3>Overview</h3>
@@ -61,7 +68,7 @@
 
                         <li id="cuti"><span class="header"></span>
                             <div class="inner">
-                                <h2>Cuti</h2>
+                                <h2>Pengajuan Cuti</h2>
                                 <div id="contact_form"  class="col_w280 float_l">
                                     <form method="post" name="contact" action="#">
                                         <table>
@@ -73,9 +80,9 @@
                                             <tr>
                                                 <td>Jenis Cuti : </td>
                                                 <td>
-                                                    <select name=?select?>
-                                                        <option value=?Islam?>Liburan</option>
-                                                        <option value=?Kristen?>Keperluan Keluarga</option>
+                                                    <select name="jenis_cuti">
+                                                        <option value="liburan">Liburan</option>
+                                                        <option value="keperluan_keluarga">Keperluan Keluarga</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -110,7 +117,35 @@
                         </li>
                         <li id="cuti"><span class="header"></span>
                             <div class="inner">
-                                <h2>Cuti</h2>
+                                <h2><% if(!session.getAttribute("user").equals("administrator")) {
+                                    out.println("You don't have permission to access this page");
+                                } else {
+                                    out.println("History Cuti Pegawai<br/>");
+                                %></h2>
+                                <%
+                                    out.println("<table><tr><th>No</th>");
+                                    out.println("<th>Nama Karyawan</th>");
+                                    out.println("<th>Awal Cuti</th>");
+                                    out.println("<th>Akhir Cuti</th>");
+                                    out.println("<th>Alasan</th>");
+                                    out.println("<th>Status</th>");
+                                    out.println("<th>Action</th></tr>");
+                                    EntityManagerFactory emf = Persistence.createEntityManagerFactory("SisInfPengambilanCutiPU");
+                                    EntityManager em = emf.createEntityManager();
+                                    HistoryCutiDAO hcdao = new HistoryCutiDAOImpl(em);
+                                    List<HistoryCuti> listCuti = hcdao.gets();
+                                    int i = 1;
+                                    for(HistoryCuti hc : listCuti){
+                                        out.println("<tr><td>"+i+"</td>");
+                                        out.println("<td>"+hc.getKaryawan().getNamakaryawan()+"</td>");
+                                        out.println("<td>"+hc.getTglawalcuti()+"</td>");
+                                        out.println("<td>"+hc.getTglakhircuti()+"</td>");
+                                        out.println("<td>"+hc.getAlasan()+"</td>");
+                                        out.println("<td>"+hc.getStatus()+"</td>");
+                                        out.println("<td><a href='/SisInfPengambilanCuti/ApproveCuti?id="+hc.getId()+"'>Approve</a></td></tr></table>");
+                                        i++;
+                                    }
+                                   }%>
                             </div>
                         </li>
 
