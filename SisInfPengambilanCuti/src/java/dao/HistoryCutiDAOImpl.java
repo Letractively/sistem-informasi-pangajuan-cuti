@@ -2,6 +2,7 @@ package dao;
 
 import entity.HistoryCuti;
 import entity.Karyawan;
+import entity.Loginkaryawan;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -48,7 +49,7 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         List<HistoryCuti> list = new ArrayList<HistoryCuti>();
         try {
             em.getTransaction().begin();
-            list = em.createQuery("SELECT hc FROM Historycuti hc WHERE hc.tglawalcuti = " + startDate
+            list = em.createQuery("SELECT hc FROM HistoryCuti hc WHERE hc.tglawalcuti = " + startDate
                     + " AND hc.tglakhircuti = " + endDate).getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -57,25 +58,67 @@ public class HistoryCutiDAOImpl extends GeneralDAOImpl implements HistoryCutiDAO
         return list;
     }
 
-    public void approveCuti(HistoryCuti hcuti) throws Exception {
+    // NEW
+    public List<HistoryCuti> getByStatus(String status) throws Exception {
+        List<HistoryCuti> list = new ArrayList<HistoryCuti>();
         try {
             em.getTransaction().begin();
-            em.merge(hcuti);
+            list = em.createQuery("SELECT hc FROM HistoryCuti hc WHERE hc.status ='" + status + "'").getResultList();
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            throw ex;
+        }
+        return list;
+    }
+
+    public void approveCuti(Long id, String status) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.createQuery("UPDATE HistoryCuti hc SET hc.status = :status WHERE hc.id = :id").setParameter("status", status).setParameter("id", id).executeUpdate();
             em.getTransaction().commit();
         } catch (Exception ex) {
             throw ex;
         }
     }
 
-    public HistoryCuti getById(long id) throws Exception {
-        HistoryCuti hc = new HistoryCuti();
+    // Lagi
+    public List<HistoryCuti> getByIdKaryawanAccept(Karyawan karyawan) throws Exception {
+        List<HistoryCuti> list = new ArrayList<HistoryCuti>();
         try {
             em.getTransaction().begin();
-            hc = (HistoryCuti) em.createQuery("SELECT hc FROM HistoryCuti hc WHERE hc.id="+id).getResultList().get(0);
+            TypedQuery<HistoryCuti> query = em.createQuery("SELECT hc FROM HistoryCuti hc WHERE hc.karyawan = :id AND hc.status = 'Accept'",
+                    HistoryCuti.class);
+            query.setParameter("id", karyawan);
+            list = query.getResultList();
             em.getTransaction().commit();
         } catch (Exception ex) {
             throw ex;
         }
-        return hc;
+        return list;
     }
+
+    public List<HistoryCuti> getById(Karyawan id) throws Exception{
+        List<HistoryCuti> list = new ArrayList<HistoryCuti>();
+        try {
+            em.getTransaction().begin();
+            TypedQuery<HistoryCuti> query = em.createQuery("SELECT hc FROM HistoryCuti hc WHERE hc.karyawan= :id",
+                    HistoryCuti.class);
+            query.setParameter("id", id);
+            list = query.getResultList();
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            throw ex;
+        }
+        return list;
+    }
+    public void removeCuti(Karyawan id, String status) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.createQuery("UPDATE HistoryCuti hc SET hc.status = :status WHERE hc.karyawan = :id").setParameter("status", status).setParameter("id", id).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
 }
