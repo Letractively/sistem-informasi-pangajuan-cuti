@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entity;
 
 import java.io.Serializable;
@@ -33,8 +32,13 @@ import javax.persistence.Table;
     @NamedQuery(name = "Karyawan.findByJenkel", query = "SELECT k FROM Karyawan k WHERE k.jenkel = :jenkel"),
     @NamedQuery(name = "Karyawan.findByNamakaryawan", query = "SELECT k FROM Karyawan k WHERE k.namakaryawan = :namakaryawan"),
     @NamedQuery(name = "Karyawan.findBySisacuti", query = "SELECT k FROM Karyawan k WHERE k.sisacuti = :sisacuti"),
-    @NamedQuery(name = "Karyawan.findByAlamat", query = "SELECT k FROM Karyawan k WHERE k.alamat = :alamat")})
+    @NamedQuery(name = "Karyawan.findByAlamat", query = "SELECT k FROM Karyawan k WHERE k.alamat = :alamat"),
+    @NamedQuery(name = "Karyawan.findByStatusKerja", query = "SELECT k FROM Karyawan k WHERE k.statuskerja = :statuskerja"),
+    @NamedQuery(name = "Karyawan.findByNotifikasi", query = "SELECT k FROM Karyawan k WHERE k.notifikasi = :notifikasi"),
+    @NamedQuery(name = "Karyawan.findByTTL", query = "SELECT k FROM Karyawan k WHERE k.ttl = :ttl")})
+
 public class Karyawan implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,9 +53,16 @@ public class Karyawan implements Serializable {
     private String sisacuti;
     @Column(name = "ALAMAT")
     private String alamat;
-    @OneToMany(mappedBy = "karyawan", fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    // Status Cuti, Status Kerja, Notifikasi
+    @Column(name = "STATUSKERJA")
+    private String statuskerja;
+    @Column(name = "NOTIFIKASI")
+    private String notifikasi;
+    @Column(name = "TTL")
+    private String ttl;
+    @OneToMany(mappedBy = "karyawan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HistoryCuti> historycutiList;
-    @OneToOne(mappedBy = "idKaryawan", fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @OneToOne(mappedBy = "idKaryawan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Loginkaryawan loginkaryawanList;
 
     public Karyawan() {
@@ -62,8 +73,8 @@ public class Karyawan implements Serializable {
     }
 
     public Karyawan(int i) {
-        Long tempid=Long.parseLong("1");
-        this.id=tempid;
+        Long tempid = Long.parseLong("1");
+        this.id = tempid;
     }
 
     public Long getId() {
@@ -122,6 +133,30 @@ public class Karyawan implements Serializable {
         this.loginkaryawanList = loginkaryawan;
     }
 
+    public String getStatuskerja() {
+        return statuskerja;
+    }
+
+    public void setStatuskerja(String statuskerja) {
+        this.statuskerja = statuskerja;
+    }
+
+    public String getNotifikasi() {
+        return notifikasi;
+    }
+
+    public void setNotifikasi(String notifikasi) {
+        this.notifikasi = notifikasi;
+    }
+
+    public String getTtl() {
+        return ttl;
+    }
+
+    public void setTtl(String ttl) {
+        this.ttl = ttl;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -146,5 +181,4 @@ public class Karyawan implements Serializable {
     public String toString() {
         return "entity.Karyawan[id=" + id + "]";
     }
-
 }
