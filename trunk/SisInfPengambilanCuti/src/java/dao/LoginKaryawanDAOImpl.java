@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dao;
 
 import entity.Karyawan;
@@ -10,13 +9,14 @@ import entity.Loginkaryawan;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
  *
  * @author Wirawan
  */
-public class LoginKaryawanDAOImpl extends GeneralDAOImpl implements LoginKaryawanDAO{
+public class LoginKaryawanDAOImpl extends GeneralDAOImpl implements LoginKaryawanDAO {
 
     public LoginKaryawanDAOImpl(EntityManager em) {
         super(em);
@@ -41,7 +41,7 @@ public class LoginKaryawanDAOImpl extends GeneralDAOImpl implements LoginKaryawa
             List resultList = em.createQuery("SELECT k FROM Loginkaryawan k WHERE k.username='"
                     + lk.getUsername() + "' AND k.password='" + lk.getPassword() + "'").getResultList();
             em.getTransaction().commit();
-            if(!resultList.isEmpty()){
+            if (!resultList.isEmpty()) {
                 login = true;
             }
         } catch (Exception ex) {
@@ -65,4 +65,18 @@ public class LoginKaryawanDAOImpl extends GeneralDAOImpl implements LoginKaryawa
         return login;
     }
 
+    //nambah fungsi update login
+    public boolean updateLoginKaryawan(String pwd, String usr) throws Exception{
+        boolean update = false;
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("UPDATE Loginkaryawan k SET k.password= :pass WHERE k.username= :user").setParameter("pass", pwd).setParameter("user", usr);
+            q.executeUpdate();
+            em.getTransaction().commit();
+            update = true;
+
+        } catch (Exception ex) {
+        }
+        return update;
+    }
 }

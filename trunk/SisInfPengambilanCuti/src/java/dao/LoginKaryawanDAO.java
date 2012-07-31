@@ -17,4 +17,5 @@ public interface LoginKaryawanDAO extends GeneralDAO {
     public List<Loginkaryawan> gets() throws Exception;
     public boolean loginKaryawan(Loginkaryawan lk) throws Exception;
     public Karyawan getLoginKaryawanName(String username) throws Exception;
+    public boolean updateLoginKaryawan(String pwd, String usr) throws Exception;
 }
