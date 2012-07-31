@@ -4,8 +4,16 @@
  */
 package servlet;
 
+import dao.KaryawanDAO;
+import dao.KaryawanDAOImpl;
+import entity.Karyawan;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +23,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Pratyaksa Ocsa
+ * @author rika
  */
-@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
-public class Logout extends HttpServlet {
+@WebServlet(name = "UpdateNotif", urlPatterns = {"/UpdateNotif"})
+public class UpdateNotif extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -35,11 +43,18 @@ public class Logout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            HttpSession session = request.getSession();
-            session.removeAttribute("user");
-            session.invalidate();
-            response.sendRedirect("/SisInfPengambilanCuti/index.jsp");
-        } finally {            
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SisInfPengambilanCutiPU");
+            EntityManager em = emf.createEntityManager();
+
+            Karyawan k = new Karyawan();
+            KaryawanDAO kdao = new KaryawanDAOImpl(em);
+            String usr = request.getParameter("usrname");
+
+            kdao.updateNotifikasi(Long.parseLong(usr), "false");
+            response.sendRedirect("home.jsp");
+
+        } catch(Exception ex){
+        }finally {
             out.close();
         }
     }

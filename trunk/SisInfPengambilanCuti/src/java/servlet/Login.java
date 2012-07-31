@@ -4,10 +4,8 @@
  */
 package servlet;
 
-import dao.AdminDAO;
-import dao.AdminDAOImpl;
-import dao.LoginKaryawanDAO;
-import dao.LoginKaryawanDAOImpl;
+import dao.*;
+import entity.Karyawan;
 import entity.Loginkaryawan;
 import entity.Tbladmin;
 import java.io.IOException;
@@ -48,31 +46,41 @@ public class Login extends HttpServlet {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("SisInfPengambilanCutiPU");
             EntityManager em = emf.createEntityManager();
             String username = request.getParameter("usr");
+
             String password = request.getParameter("pwd");
             Tbladmin loginAdmin = new Tbladmin();
             loginAdmin.setUsername(username);
             loginAdmin.setPassword(password);
             AdminDAO adminDao = new AdminDAOImpl(em);
-            if(adminDao.loginAdmin(loginAdmin)){
+
+            Loginkaryawan loginKaryawan = new Loginkaryawan();
+            loginKaryawan.setUsername(username);
+            loginKaryawan.setPassword(password);
+            LoginKaryawanDAO loginKaryawanDAO = new LoginKaryawanDAOImpl(em);
+
+            Karyawan k = new Karyawan();
+            KaryawanDAO kado = new KaryawanDAOImpl(em);
+            k = kado.get(Long.parseLong(username));
+            if (adminDao.loginAdmin(loginAdmin) && k.getStatuskerja().equalsIgnoreCase("true")) {
                 //LOGIN AS ADMIN
                 HttpSession session = request.getSession(true);
                 session.setAttribute("user", "administrator");
-                response.sendRedirect("/SisInfPengambilanCuti/home.jsp");
+                response.sendRedirect("home.jsp");
+            } else if (loginKaryawanDAO.loginKaryawan(loginKaryawan)) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("user", loginKaryawan.getUsername());
+
+                response.sendRedirect("home.jsp");
             } else {
-                Loginkaryawan loginKaryawan = new Loginkaryawan();
-                loginKaryawan.setUsername(username);
-                loginKaryawan.setPassword(password);
-                LoginKaryawanDAO loginKaryawanDAO = new LoginKaryawanDAOImpl(em);
-                if(loginKaryawanDAO.loginKaryawan(loginKaryawan)){
-                    HttpSession session = request.getSession(true);
-                    session.setAttribute("user", loginKaryawanDAO.getLoginKaryawanName(username).getNamakaryawan());
-                    response.sendRedirect("/SisInfPengambilanCuti/home.jsp");
-                }
-                //LOGIN gagal
-                RequestDispatcher rd = request.getRequestDispatcher("/SisInfPengambilanCuti/index.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 request.setAttribute("failed", "Login Gagal");
+                cuti.DateTimeCuti.validator=true;                
+                response.sendRedirect("home.jsp");
                 rd.include(request, response);
             }
+
+            //LOGIN gagal
+
         } catch (Exception ex) {
             System.out.println(ex.getCause());
         } finally {
