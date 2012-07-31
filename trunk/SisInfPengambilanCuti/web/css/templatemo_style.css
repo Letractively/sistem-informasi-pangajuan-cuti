@@ -89,7 +89,7 @@ h6 { font-size: 10px; margin: 0 0 5px; padding: 0; }
 	display: block; 
 	font-size: 12px; 
 	font-family: Georgia, "Times New Roman", Times, serif; 
-	width: 220px; 
+	width: 500px; 
 	height: 95px; 
 	color: #acacac; 
 	text-indent: -10000px; 
@@ -148,6 +148,34 @@ h6 { font-size: 10px; margin: 0 0 5px; padding: 0; }
 }
 #templatemo_content #cuti.active {
 }
+#templatemo_content #request {
+}
+#templatemo_content #request.active {
+}
+#templatemo_content #list {
+}
+#templatemo_content #list.active {
+}
+#templatemo_content #history {
+}
+#templatemo_content #history.active {
+}
+#templatemo_content #karyawan {
+}
+#templatemo_content #karyawan.active {
+}
+#templatemo_content #login {
+}
+#templatemo_content #login.active {
+}
+#templatemo_content #setting {
+}
+#templatemo_content #setting.active {
+}
+#templatemo_content #profile {
+}
+#templatemo_content #profile.active {
+}
 #templatemo_content #contact {
 }
 #templatemo_content #contact.active {
@@ -161,11 +189,30 @@ h6 { font-size: 10px; margin: 0 0 5px; padding: 0; }
 #templatemo_content #home.active span.header {
 	background-image: url(../images/home.png)
 }
-
 #templatemo_content #cuti span.header {
 	background-image: url(../images/cuti.png)	
 }
-
+#templatemo_content #request span.header {
+	background-image: url(../images/request.png)	
+}
+#templatemo_content #list span.header {
+	background-image: url(../images/list.png)	
+}
+#templatemo_content #history span.header {
+	background-image: url(../images/history.png)	
+}
+#templatemo_content #karyawan span.header {
+	background-image: url(../images/karyawan.png)	
+}
+#templatemo_content #login span.header {
+	background-image: url(../images/login.png)	
+}
+#templatemo_content #setting span.header {
+	background-image: url(../images/setting.png)	
+}
+#templatemo_content #profile span.header {
+	background-image: url(../images/profile.png)	
+}
 #templatemo_content #contact span.header {
 	background-image: url(../images/contact.png)	
 }
@@ -262,9 +309,3 @@ h6 { font-size: 10px; margin: 0 0 5px; padding: 0; }
 }
 
 .col_half { width: 270px }
-
-table {
-    font-size: 14px;
-    text-align: center;
-    width: 100%;
-}
