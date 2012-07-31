@@ -1,3 +1,12 @@
+<%-- 
+    Document   : index
+    Created on : Jul 28, 2012, 10:42:59 AM
+    Author     : suriojiwandono
+--%>
+<%
+    String log = (String) session.getAttribute("user");
+    if (log == null) {
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -25,6 +34,27 @@
         <link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" /> 
         <script type="text/JavaScript" src="js/slimbox2.js"></script> 
 
+        <script language="javascript">
+            function cekValidasi (form){
+                varUser = form.usr.value;
+                varPassword = form.pwd.value;
+                if(varUser=="" && varPassword==""){
+                    alert("Input Semua Field");
+                    return false;
+                    form.usr.focus();
+                } else if(varUser==""){
+                    alert("Input Username");
+                    return false;
+                    form.usr.focus();
+                } else if(varPassword==""){
+                    alert("Input Password");
+                    return false;
+                    form.pwd.focus();
+                } else {
+                    return true;
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -37,44 +67,44 @@
                 </div>
 
                 <div id="templatemo_content">
-                    <ul class="inner">
+                    <ul class="kwicks">
+                        <li id="login"><span class="header"></span>
+                            <div class="inner">
+                                <h2 >Login</h2>
+                                <div id="contact_form"  class="col_w280 float_l">
+                                    <%
+                                        if (cuti.DateTimeCuti.validator == true) {
+                                            out.print("Gagal Login");
+                                            cuti.DateTimeCuti.validator= false;
+                                        }
+                                    %>
+                                    <form method="post" name="contact" action="Login">
+                                        <table>
+                                            <tr>
+                                                <td>Username: </td>
+                                                <td>
+                                                    <input type="text" id="author" name="usr" class="required input_field" />
+                                                </td></tr>
 
-                        <li id="home"><span class="header"></span>
-                            <h2 >Login</h2>
-                            <div id="contact_form"  class="col_w280 float_l">
-                                <%  //if(request.getAttribute("failed") != null){
-                                    //  out.println("<h3><font color='red'>" + request.getAttribute("failed") +"</font></h3>");  
-                                    //}
-                                %>
-                                <form method="post" name="contact" action="/SisInfPengambilanCuti/Login">
-                                    <table>
-                                        <tr>
-                                            <td>Username: </td>
-                                            <td>
-                                                <input type="text" id="author" name="usr" class="required input_field" />
-                                            </td></tr>
+                                            <tr>
+                                                <td> Password : </td>
+                                                <td>
+                                                    <input type="password" id="author" name="pwd" class="required input_field" />
+                                                </td>
+                                            </tr>
 
-                                        <tr>
-                                            <td> Password : </td>
-                                            <td>
-                                                <input type="password" id="author" name="pwd" class="required input_field" />
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <input value="LOGIN" type="submit" id="author" name="author" class="required input_field" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </form>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <input type="submit" id="author" name="author" value="Login"class="required input_field" onclick="return cekValidasi(this.form)"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
                             </div>
                         </li>
-
-
                     </ul>
-
                 </div> <!-- END of content -->
             </div> <!-- END of templatemo_main -->
             <div id="templatemo_footer">Copyright © 2048 Your Company Name | <a href="http://www.iwebsitetemplate.com" target="_parent">Website Templates</a> by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a></div>
@@ -82,3 +112,7 @@
 
     </body>
 </html>
+<% } else {
+        response.sendRedirect("home.jsp");
+    }
+%>

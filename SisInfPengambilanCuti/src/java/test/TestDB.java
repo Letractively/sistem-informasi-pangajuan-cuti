@@ -29,14 +29,14 @@ import javax.persistence.Persistence;
 public class TestDB {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SisInfPengambilanCutiPU");
-        EntityManager em = emf.createEntityManager();
-        try {
-            HistoryCutiDAO hcdao = new HistoryCutiDAOImpl(em);
-            HistoryCuti hc = hcdao.getById(1);
-            System.out.println(hc.getStatus());
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SisInfPengambilanCutiPU");
+//        EntityManager em = emf.createEntityManager();
+//        try {
+//            HistoryCutiDAO hcdao = new HistoryCutiDAOImpl(em);
+//            HistoryCuti hc = hcdao.getById(1L);
+//            System.out.println(hc.getStatus());
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
     }
 }
